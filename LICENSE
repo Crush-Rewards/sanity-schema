@@ -1,0 +1,5 @@
+Copyright (c) 2026 Crush Rewards, Inc. All rights reserved.
+
+This repository is public only so that Vercel builds of the Crush Rewards and
+Syntalic sites can install it as a git dependency. No licence is granted to
+use, copy, modify or distribute its contents outside Crush Rewards, Inc.

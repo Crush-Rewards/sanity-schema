@@ -1,0 +1,22 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # typecheck + tests + build + extract, then fail if dist/ or schema.json
+      # do not match the sources: consumers install exactly what is committed.
+      - run: pnpm check

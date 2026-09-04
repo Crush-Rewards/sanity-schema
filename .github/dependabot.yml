@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      sanity:
+        patterns: ["sanity", "@sanity/*"]
+      dev:
+        dependency-type: development
+    # The schema package pins @sanity/types to the version the sites run;
+    # major bumps are a deliberate, cross-repo change.
+    ignore:
+      - dependency-name: "@sanity/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "sanity"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
