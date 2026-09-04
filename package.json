@@ -1,0 +1,50 @@
+{
+  "name": "@crush-rewards/sanity-schema",
+  "version": "0.1.0",
+  "description": "The single source of truth for the Crush Rewards / Syntalic Sanity content schema (post, category, legalPage, topicCluster).",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./schema.json": "./schema.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "schema.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "extract": "sanity schema extract --path schema.json --enforce-required-fields",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run test && npm run build && npm run extract && git diff --exit-code -- schema.json"
+  },
+  "peerDependencies": {
+    "@sanity/types": ">=5"
+  },
+  "devDependencies": {
+    "@sanity/schema": "5.11.0",
+    "@sanity/types": "5.11.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.14",
+    "sanity": "5.11.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "styled-components": "^6.3.12",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
