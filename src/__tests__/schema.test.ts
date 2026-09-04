@@ -5,10 +5,10 @@ import { allTypes, documentTypeNames, schemaTypes, tableTypes } from "../index.j
 const compiled = Schema.compile({ name: "test", types: allTypes });
 
 describe("schema package", () => {
-  it("exports exactly the four documents plus the two table stand-ins", () => {
-    expect(schemaTypes.map((t) => t.name).sort()).toEqual([...documentTypeNames].sort());
+  it("exports the four documents, the codeBlock object, and the two table stand-ins", () => {
+    expect(schemaTypes.map((t) => t.name).sort()).toEqual([...documentTypeNames, "codeBlock"].sort());
     expect(tableTypes.map((t) => t.name)).toEqual(["tableRow", "table"]);
-    expect(allTypes).toHaveLength(6);
+    expect(allTypes).toHaveLength(7);
   });
 
   it("has no duplicate type names", () => {
@@ -23,12 +23,12 @@ describe("schema package", () => {
     }
   });
 
-  it("post.body accepts block, table, image and video — the shape the engine and both sites rely on", () => {
+  it("post.body accepts block, table, image, video and codeBlock — the shape the engine and both sites rely on", () => {
     const post = compiled.get("post");
     const body = post?.fields?.find((f: { name: string }) => f.name === "body");
     expect(body?.type.jsonType).toBe("array");
     const members = (body?.type.of ?? []).map((m: { name: string }) => m.name).sort();
-    expect(members).toEqual(["block", "image", "table", "video"]);
+    expect(members).toEqual(["block", "codeBlock", "image", "table", "video"]);
   });
 
   it("post.body blocks: link annotation carries only href; styles/lists/decorators are Sanity defaults", () => {
@@ -65,6 +65,12 @@ describe("schema package", () => {
       "bullet",
       "number",
     ]);
+  });
+
+  it("codeBlock is a plain object with language/filename/code and code is required", () => {
+    const cb = compiled.get("codeBlock");
+    expect(cb?.jsonType).toBe("object");
+    expect((cb?.fields ?? []).map((f: { name: string }) => f.name)).toEqual(["language", "filename", "code"]);
   });
 
   it("table stand-ins match @sanity/table's shape", () => {

@@ -143,6 +143,7 @@ export const post = defineType({
                         }),
                     },
                 }),
+                defineArrayMember({ type: "codeBlock" }),
             ],
         }),
         defineField({

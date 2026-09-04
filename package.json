@@ -1,6 +1,6 @@
 {
   "name": "@crush-rewards/sanity-schema",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "The single source of truth for the Crush Rewards / Syntalic Sanity content schema (post, category, legalPage, topicCluster).",
   "private": true,
   "license": "UNLICENSED",

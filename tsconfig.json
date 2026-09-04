@@ -21,7 +21,6 @@
   },
   "include": [
     "src",
-    "sanity.config.ts",
     "vitest.config.ts"
   ]
 }

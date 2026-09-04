@@ -1,12 +1,14 @@
 import { category } from "./category.js";
+import { codeBlock } from "./codeBlock.js";
 import { legalPage } from "./legalPage.js";
 import { post } from "./post.js";
 import { topicCluster } from "./topicCluster.js";
-export { category, legalPage, post, topicCluster };
+export { category, codeBlock, legalPage, post, topicCluster };
 export { table, tableRow, tableTypes } from "./table.js";
 /**
- * The document types. This is what a Studio registers (together with the
- * `@sanity/table` plugin, which supplies `table`/`tableRow`).
+ * The document types plus the shared objects they embed (`codeBlock`). This is
+ * what a Studio registers (together with the `@sanity/table` plugin, which
+ * supplies `table`/`tableRow`).
  */
 export declare const schemaTypes: (({
     type: "document";
@@ -15,6 +17,15 @@ export declare const schemaTypes: (({
     preview?: import("@sanity/types").PreviewConfig<{
         title: string;
     }, Record<"title", any>> | undefined;
+}) | ({
+    type: "object";
+    name: "codeBlock";
+} & Omit<import("@sanity/types").ObjectDefinition, "preview"> & {
+    preview?: import("@sanity/types").PreviewConfig<{
+        title: string;
+        subtitle: string;
+        code: string;
+    }, Record<"title" | "code" | "subtitle", any>> | undefined;
 }) | ({
     type: "document";
     name: "legalPage";
@@ -52,6 +63,15 @@ export declare const allTypes: (({
     preview?: import("@sanity/types").PreviewConfig<{
         title: string;
     }, Record<"title", any>> | undefined;
+}) | ({
+    type: "object";
+    name: "codeBlock";
+} & Omit<import("@sanity/types").ObjectDefinition, "preview"> & {
+    preview?: import("@sanity/types").PreviewConfig<{
+        title: string;
+        subtitle: string;
+        code: string;
+    }, Record<"title" | "code" | "subtitle", any>> | undefined;
 }) | ({
     type: "document";
     name: "legalPage";
