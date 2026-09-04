@@ -20,16 +20,19 @@ Sanity project `sl9izhcz`; one schema, one dataset per site.
 "@sanity/types": "5.11.0" // peer; pin to the version your `sanity` uses
 ```
 
-The package builds itself on install (`prepare` → `tsc`), so a git dependency
-works with both pnpm and npm. Import from `@crush-rewards/sanity-schema`; point
-TypeGen at `node_modules/@crush-rewards/sanity-schema/schema.json`.
+`dist/` is committed on every tag, so a git dependency installs with no build
+step under pnpm and npm. (A `prepare` script was tried first: pnpm then installs
+the package's devDependencies — the whole Studio — inside the consumer's build,
+and its progress output alone exceeded Vercel's 4 MB build-log limit.) Import
+from `@crush-rewards/sanity-schema`; point TypeGen at
+`node_modules/@crush-rewards/sanity-schema/schema.json`.
 
 ## Changing the schema
 
 1. Edit `src/*.ts`. Additions are **optional objects/fields only** — never a
    site-specific fork of `post`. Both sites and the engine read every type here.
-2. `pnpm check` — typecheck, tests, build, re-extract, and fail if `schema.json`
-   is stale.
+2. `pnpm check` — typecheck, tests, build, re-extract, and fail if `dist/` or
+   `schema.json` is stale (both are committed).
 3. Bump `version`, commit, tag `vX.Y.Z`, push the tag.
 4. Bump the tag in each consumer (landing-page, api-landing-page, content-engine,
    sanity-studio) and redeploy the Studio **first**, so editors never see

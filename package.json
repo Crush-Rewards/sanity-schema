@@ -1,6 +1,6 @@
 {
   "name": "@crush-rewards/sanity-schema",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The single source of truth for the Crush Rewards / Syntalic Sanity content schema (post, category, legalPage, topicCluster).",
   "private": true,
   "license": "UNLICENSED",
@@ -23,11 +23,10 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepare": "npm run build",
     "extract": "sanity schema extract --path schema.json --enforce-required-fields",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm run test && npm run build && npm run extract && git diff --exit-code -- schema.json"
+    "check": "npm run typecheck && npm run test && npm run build && npm run extract && git diff --exit-code -- dist schema.json"
   },
   "peerDependencies": {
     "@sanity/types": ">=5"
